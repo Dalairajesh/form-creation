@@ -22,7 +22,7 @@ exports.createForm = async (req, res) => {
       await formService.fillData(req.query.form_title, req.body);
       res.status(201).json({status:201, message: 'Data filled successfully' });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.status(404).json({ error: error.message });
     }
   };
   
