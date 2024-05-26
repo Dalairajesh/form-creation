@@ -1,17 +1,19 @@
-const forms = {};
+const  Form  = require('../models/form.model')
 
-exports.createForm = (form) => {
-    if (!forms[form.title]) {
-        forms[form.title] = [];
-    }
+
+exports.createForm = async (formData) => {
+    console.log(formData)
+  return await Form.create(formData)
 };
 
-exports.fillData = (formTitle, formData) => {
-    if (!forms[formTitle]) throw new Error('Form not found');
-    forms[formTitle].push(formData);
+exports.fillData = async (formTitle, formData) => {
+  const form = await Form.findOne({ where: { title: formTitle } });
+  if (!form) {
+    throw new Error('Form not found');
+  }
+  return await Form.update(formData,{where:{title: formTitle }});
 };
 
-exports.getAllData = (formTitle) => {
-    if (!forms[formTitle]) throw new Error('Form not found');
-    return forms[formTitle];
+exports.getAllData = async (formTitle) => {
+  return await Form.findAll({ where: { title: formTitle } });
 };

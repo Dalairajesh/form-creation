@@ -1,7 +1,7 @@
 require('dotenv').config()
 const cors = require('cors')
 const express = require('express')
-const db = require('./src/config/index')
+const dbConnect = require('./src/config/index')
 const formRoutes = require('./src/routes/form.route');
 
 const app = express()
@@ -17,7 +17,7 @@ const port = process.env.APP_PORT ||3030
 //     next(error);
 // });
 
-db.sequelize.sync()
+dbConnect.sync()
 
 app.use('/form', formRoutes);
 
